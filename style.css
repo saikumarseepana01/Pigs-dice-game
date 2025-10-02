@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+/* c:\Users\DELL\OneDrive\Desktop\HTML\Games\Pigs\style.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -29,18 +30,29 @@ main {
   height: 60rem;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
+  animation: fade-in 0.8s ease-out; /* Game start animation */
   filter: blur();
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
   border-radius: 9px;
   overflow: hidden;
   display: flex;
+  flex-direction: column; /* Main layout is now vertical */
+  justify-content: space-around;
+}
+
+.top-container {
+  display: flex;
+  height: 80%; /* Give top sections most of the space */
 }
 
 .player {
-  flex: 50%;
-  padding: 9rem;
+  flex: 40%;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5rem;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+  margin: 10px;
   align-items: center;
   transition: all 0.75s;
 }
@@ -48,7 +60,7 @@ main {
 /* ELEMENTS */
 .name {
   position: relative;
-  font-size: 4rem;
+  font-size: 3.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   word-spacing: 2px;
@@ -57,7 +69,7 @@ main {
 }
 
 .score {
-  font-size: 8rem;
+  font-size: 6rem;
   font-weight: 300;
   color: #c7365f;
   margin-bottom: auto;
@@ -99,11 +111,7 @@ main {
   font-size: 3.5rem;
 }
 
-/* ABSOLUTE POSITIONED ELEMENTS */
 .btn {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   color: #444;
   background: none;
   border: none;
@@ -113,52 +121,47 @@ main {
   cursor: pointer;
   font-weight: 400;
   transition: all 0.2s;
-
   background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
-
   padding: 0.7rem 2.5rem;
   border-radius: 50rem;
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
 }
 
-.btn::first-letter {
-  font-size: 2.4rem;
-  display: inline-block;
-  margin-right: 0.7rem;
-}
-
-.btn--new {
-  top: 4rem;
-}
-.btn--roll {
-  top: 39.3rem;
-}
-.btn--hold {
-  top: 46.1rem;
-}
-
 .btn:active {
-  transform: translate(-50%, 3px);
+  transform: translateY(2px);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
 .btn:focus {
-  outline: none;
+  outline: 3px solid #555;
+  outline-offset: 3px;
+}
+
+.dice-section {
+  flex: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons-section {
+  /* No longer absolutely positioned */
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 .dice {
-  position: absolute;
-  left: 50%;
-  top: 16.5rem;
-  transform: translateX(-50%);
-  height: 10rem;
+  height: 8rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
 }
 
 .player--winner {
   background-color: #2f2f2f;
+  animation: winner-glow 2s infinite ease-in-out; /* Winner animation */
 }
 
 .player--winner .name {
@@ -168,4 +171,76 @@ main {
 
 .hidden {
   display: none;
+}
+
+/* KEYFRAME ANIMATIONS */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes winner-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 2rem rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 4rem 1.5rem rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* MEDIA QUERY FOR MOBILE */
+@media (max-width: 1020px) {
+  main {
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .top-container {
+    flex-direction: column;
+  }
+
+  .player {
+    flex-grow: 1;
+    padding: 2rem;
+    min-height: 0;
+  }
+
+  .name {
+    font-size: 2.5rem;
+  }
+
+  .score {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .dice-section {
+    padding: 1rem 0;
+  }
+
+  .buttons-section {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: none; /* Remove desktop border */
+    /* background-color: rgba(0, 0, 0, 0.2); Add a background for visibility */
+  }
+
+  .dice {
+    height: 7rem;
+  }
 }

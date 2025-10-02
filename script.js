@@ -27,11 +27,15 @@ const init = function () {
   current0El.textContent = 0;
   current1El.textContent = 0;
 
-  diceEl.classList.add('hidden');
+  diceEl.classList.remove('hidden');
+  diceEl.src = 'images/dice-1.png';
+  diceEl.alt = 'Dice showing a 1';
   player0El.classList.remove('player--winner');
   player1El.classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
+  btnRoll.disabled = false;
+  btnHold.disabled = false;
 };
 init();
 
@@ -52,6 +56,7 @@ btnRoll.addEventListener('click', function () {
     // 2. Display dice
     diceEl.classList.remove('hidden');
     diceEl.src = `images/dice-${dice}.png`;
+    diceEl.alt = `Dice showing a ${dice}`;
 
     // 3. Check for rolled 1
     if (dice !== 1) {
@@ -77,10 +82,12 @@ btnHold.addEventListener('click', function () {
       scores[activePlayer];
 
     // 2. Check if player's score is >= 100
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= 50) {
       // Finish the game
       playing = false;
       diceEl.classList.add('hidden');
+      btnRoll.disabled = true;
+      btnHold.disabled = true;
 
       document
         .querySelector(`.player--${activePlayer}`)
